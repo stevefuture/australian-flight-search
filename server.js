@@ -325,17 +325,14 @@ app.post('/api/search', async (req, res) => {
           note: 'Real flight data from Google Flights via SerpApi'
         });
       } else {
-        console.log('No flights found via SerpApi, using mock data');
+        console.log('No flights found via SerpApi');
+        return res.json({
+          flights: [],
+          source: 'serpapi',
+          note: 'No flights available for this route and date. Try different dates or check for connecting flights.'
+        });
       }
     }
-
-    // Use mock data as fallback
-    const flights = generateMockFlights(origin, destination, date);
-    res.json({
-      flights,
-      source: 'mock',
-      note: 'Showing sample flight data. Prices and times are realistic estimates for Australian domestic routes.'
-    });
 
   } catch (error) {
     console.error('Search error:', error);
