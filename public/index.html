@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Australian Flight Search - Regional NSW Airports</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AU Flights">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#667eea">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛫 Australian Flight Search</h1>
+            <p class="subtitle">Search flights from Newcastle, Port Macquarie, Coffs Harbour & Ballina</p>
+        </header>
+
+        <div class="search-card">
+            <form id="searchForm">
+                <div class="trip-type">
+                    <label class="radio-option">
+                        <input type="radio" name="tripType" value="one-way" checked>
+                        <span>One-way</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="tripType" value="round-trip">
+                        <span>Round-trip</span>
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origin">Departure Airport</label>
+                        <select id="origin" required>
+                            <option value="">Select departure airport...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <select id="destination" required>
+                            <option value="">Select destination...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureDate">Departure Date</label>
+                        <input type="date" id="departureDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="returnDate">Return Date</label>
+                        <input type="date" id="returnDate" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <button type="submit" class="search-btn">Search Flights</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Searching flights...</p>
+        </div>
+
+        <div id="results" class="results" style="display: none;">
+            <div class="results-header">
+                <h2>Available Flights</h2>
+                <p id="resultsInfo" class="results-info"></p>
+            </div>
+
+            <div id="outboundFlights">
+                <h3 class="section-title">Outbound Flights</h3>
+                <div id="outboundList" class="flights-list"></div>
+            </div>
+
+            <div id="returnFlights" style="display: none;">
+                <h3 class="section-title">Return Flights</h3>
+                <div id="returnList" class="flights-list"></div>
+            </div>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+
+    <footer>
+        <p>Searching flights from Newcastle (NTL), Port Macquarie (PQQ), Coffs Harbour (CFS), and Ballina (BNK)</p>
+        <p class="note">Prices are in AUD and sorted from cheapest to most expensive</p>
+    </footer>
+
+    <script src="app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

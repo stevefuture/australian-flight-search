@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+            background: white;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate App Icons</h1>
+        <p>Right-click each canvas and "Save Image As..." to download the icons.</p>
+
+        <h3>192x192 Icon</h3>
+        <canvas id="icon192" width="192" height="192"></canvas>
+        <button onclick="downloadIcon('icon192', 'icon-192.png')">Download 192x192</button>
+
+        <h3>512x512 Icon</h3>
+        <canvas id="icon512" width="512" height="512"></canvas>
+        <button onclick="downloadIcon('icon512', 'icon-512.png')">Download 512x512</button>
+    </div>
+
+    <script>
+        function drawIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Plane icon (simplified)
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.02;
+
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const scale = size / 512;
+
+            // Draw plane
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.scale(scale, scale);
+
+            ctx.beginPath();
+            ctx.moveTo(0, -120);
+            ctx.lineTo(15, -60);
+            ctx.lineTo(90, 0);
+            ctx.lineTo(90, 30);
+            ctx.lineTo(30, 60);
+            ctx.lineTo(30, 80);
+            ctx.lineTo(100, 100);
+            ctx.lineTo(0, 140);
+            ctx.lineTo(-100, 100);
+            ctx.lineTo(-30, 80);
+            ctx.lineTo(-30, 60);
+            ctx.lineTo(-90, 30);
+            ctx.lineTo(-90, 0);
+            ctx.lineTo(-15, -60);
+            ctx.closePath();
+            ctx.fill();
+
+            // Cockpit
+            ctx.fillStyle = '#667eea';
+            ctx.beginPath();
+            ctx.arc(0, -80, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+
+            // Text
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.12}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('AU', centerX, size * 0.85);
+        }
+
+        // Draw icons on page load
+        drawIcon(document.getElementById('icon192'));
+        drawIcon(document.getElementById('icon512'));
+
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>

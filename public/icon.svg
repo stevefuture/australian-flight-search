@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#667eea" rx="80"/>
+
+  <!-- Plane icon -->
+  <g transform="translate(256, 256)">
+    <!-- Plane body -->
+    <path d="M 0,-120 L 15,-60 L 90,0 L 90,30 L 30,60 L 30,80 L 100,100 L 0,140 L -100,100 L -30,80 L -30,60 L -90,30 L -90,0 L -15,-60 Z"
+          fill="white"
+          stroke="none"/>
+
+    <!-- Cockpit window -->
+    <circle cx="0" cy="-80" r="15" fill="#667eea"/>
+  </g>
+
+  <!-- Text -->
+  <text x="256" y="450" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle">AU</text>
+</svg>

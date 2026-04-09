@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: au-flight-search
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: SERPAPI_KEY
+        sync: false
+      - key: CACHE_TTL_MINUTES
+        value: 10
